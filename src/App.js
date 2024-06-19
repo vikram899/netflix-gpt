@@ -1,5 +1,7 @@
+import Body from "./components/Body";
+
 function App() {
-  return <div className="text-white font-bold">Hello from react</div>;
+  return <Body />;
 }
 
 export default App;
