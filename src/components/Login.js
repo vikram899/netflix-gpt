@@ -1,28 +1,71 @@
 import React, { useRef, useState } from "react";
 import Header from "./Header";
 import { isSignDataValid } from "../utils/validate";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "../utils/firebase";
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
   const [isValidForm, setIsValidForm] = useState("");
+  const [clicked, setClicked] = useState(false);
 
   let emailRef = useRef("");
   let passwordRef = useRef("");
 
   const handleClickEvent = () => {
+    setClicked(!clicked);
+
+    setTimeout(() => {
+      setClicked(false);
+    }, 100);
+
     const checkValidate = isSignDataValid(
       emailRef.current.value,
       passwordRef.current.value
     );
-    console.log(checkValidate);
     setIsValidForm(checkValidate);
+
+    if (checkValidate.length !== 0) return;
+    if (isSignIn) {
+      signInWithEmailAndPassword(
+        auth,
+        emailRef.current.value,
+        passwordRef.current.value
+      )
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setIsValidForm(errorMessage);
+        });
+    } else {
+      createUserWithEmailAndPassword(
+        auth,
+        emailRef.current.value,
+        passwordRef.current.value
+      )
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setIsValidForm(errorMessage);
+        });
+    }
   };
 
   const toggleSignIn = () => {
     setIsSignIn(!isSignIn);
-    emailRef.current.value = ""
-    passwordRef.current.value = ""
-    
+    emailRef.current.value = "";
+    passwordRef.current.value = "";
   };
   return (
     <div>
@@ -64,7 +107,12 @@ const Login = () => {
           <p className="p-2 text-red-500">{isValidForm}</p>
         )}
         <button
-          className="p-2 my-6 bg-red-700 w-full rounded-md font-bold"
+          //className="p-2 my-6 bg-red-700 w-full rounded-md font-bold transition duration-300 ease-in-out transform hover:scale-105"
+          className={`p-2 my-6 w-full rounded-md font-bold ${
+            clicked
+              ? "bg-red-200 text-white scale-95"
+              : "bg-red-700 text-black"
+          } transition duration-300 ease-in-out transform`}
           onClick={handleClickEvent}
         >
           {isSignIn ? "Sign In" : "Sign Up"}
