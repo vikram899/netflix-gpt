@@ -6,11 +6,14 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
   const [isValidForm, setIsValidForm] = useState("");
   const [clicked, setClicked] = useState(false);
+
+  const navigate = useNavigate();
 
   let emailRef = useRef("");
   let passwordRef = useRef("");
@@ -37,7 +40,7 @@ const Login = () => {
       )
         .then((userCredential) => {
           const user = userCredential.user;
-          console.log(user);
+          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -52,7 +55,7 @@ const Login = () => {
       )
         .then((userCredential) => {
           const user = userCredential.user;
-          console.log(user);
+          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -109,9 +112,7 @@ const Login = () => {
         <button
           //className="p-2 my-6 bg-red-700 w-full rounded-md font-bold transition duration-300 ease-in-out transform hover:scale-105"
           className={`p-2 my-6 w-full rounded-md font-bold ${
-            clicked
-              ? "bg-red-200 text-white scale-95"
-              : "bg-red-700 text-black"
+            clicked ? "bg-red-200 text-white scale-95" : "bg-red-700 text-black"
           } transition duration-300 ease-in-out transform`}
           onClick={handleClickEvent}
         >
