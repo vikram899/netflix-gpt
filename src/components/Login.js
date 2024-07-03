@@ -4,17 +4,22 @@ import { isSignDataValid } from "../utils/validate";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
   const [isValidForm, setIsValidForm] = useState("");
   const [clicked, setClicked] = useState(false);
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
+  let name = useRef("");
   let emailRef = useRef("");
   let passwordRef = useRef("");
 
@@ -55,7 +60,17 @@ const Login = () => {
       )
         .then((userCredential) => {
           const user = userCredential.user;
-          navigate("/browse");
+
+          updateProfile(user, {
+            displayName: name.current.value,
+            photoURL: "https://example.com/jane-q-user/profile.jpg",
+          })
+            .then(() => {
+              const { uid, email, displayName } = auth.currentUser;
+              dispatch(addUser({uid, email, displayName}));
+              navigate("/browse");
+            })
+            .catch((error) => {});
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -89,6 +104,7 @@ const Login = () => {
         </h1>
         {!isSignIn && (
           <input
+            ref={name}
             type="text"
             placeholder="Full name"
             className="p-2 my-4 w-full bg-gray-600 rounded-md bg-opacity-80"
