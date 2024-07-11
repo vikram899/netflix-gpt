@@ -17,3 +17,5 @@ export const NOWPLAYING_API =
 export const TRAILER_API = "https://api.themoviedb.org/3/movie/";
 export const TRAILER_VIDEO_API = "/videos";
 
+export const POSTER_API = "https://image.tmdb.org/t/p/w500/";
+
