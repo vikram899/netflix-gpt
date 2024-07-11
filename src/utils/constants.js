@@ -13,3 +13,7 @@ export const API_OPTIONS = {
 
 export const NOWPLAYING_API =
   "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1";
+
+export const TRAILER_API = "https://api.themoviedb.org/3/movie/";
+export const TRAILER_VIDEO_API = "/videos";
+
