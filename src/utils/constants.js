@@ -12,7 +12,11 @@ export const API_OPTIONS = {
 };
 
 export const NOWPLAYING_API =
-  "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1";
+  "https://api.themoviedb.org/3/movie/now_playing";
+// export const POPULAR_API =
+//   "https://api.themoviedb.org/3/movie/top_rated";
+ export const POPULAR_API =
+   "https://api.themoviedb.org/3/movie/popular";
 
 export const TRAILER_API = "https://api.themoviedb.org/3/movie/";
 export const TRAILER_VIDEO_API = "/videos";
