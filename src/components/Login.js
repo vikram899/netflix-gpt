@@ -9,6 +9,7 @@ import {
 import { auth } from "../utils/firebase";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { BG_URL } from "../utils/constants";
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
@@ -87,7 +88,7 @@ const Login = () => {
       <Header />
       <div className="absolute">
         <img
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/51c1d7f7-3179-4a55-93d9-704722898999/be90e543-c951-40d0-9ef5-e067f3e33d16/IN-en-20240610-popsignuptwoweeks-perspective_alpha_website_small.jpg"
+          src={BG_URL}
           alt="login-background"
         ></img>
       </div>
@@ -123,7 +124,6 @@ const Login = () => {
           <p className="p-2 text-red-500">{isValidForm}</p>
         )}
         <button
-          //className="p-2 my-6 bg-red-700 w-full rounded-md font-bold transition duration-300 ease-in-out transform hover:scale-105"
           className={`p-2 my-6 w-full rounded-md font-bold ${
             clicked ? "bg-red-200 text-white scale-95" : "bg-red-700 text-black"
           } transition duration-300 ease-in-out transform`}
