@@ -11,17 +11,21 @@ export const API_OPTIONS = {
   },
 };
 
-export const NOWPLAYING_API =
-  "https://api.themoviedb.org/3/movie/now_playing";
+export const NOWPLAYING_API = "https://api.themoviedb.org/3/movie/now_playing";
 // export const POPULAR_API =
 //   "https://api.themoviedb.org/3/movie/top_rated";
- export const POPULAR_API =
-   "https://api.themoviedb.org/3/movie/popular";
+export const POPULAR_API = "https://api.themoviedb.org/3/movie/popular";
 
 export const TRAILER_API = "https://api.themoviedb.org/3/movie/";
 export const TRAILER_VIDEO_API = "/videos";
 
 export const POSTER_API = "https://image.tmdb.org/t/p/w500/";
 
-export const BG_URL = "https://assets.nflxext.com/ffe/siteui/vlv3/51c1d7f7-3179-4a55-93d9-704722898999/be90e543-c951-40d0-9ef5-e067f3e33d16/IN-en-20240610-popsignuptwoweeks-perspective_alpha_website_small.jpg";
+export const BG_URL =
+  "https://assets.nflxext.com/ffe/siteui/vlv3/51c1d7f7-3179-4a55-93d9-704722898999/be90e543-c951-40d0-9ef5-e067f3e33d16/IN-en-20240610-popsignuptwoweeks-perspective_alpha_website_small.jpg";
 
+export const SUPPORTED_LANGUAGE = [
+  { id: "en", name: "English" },
+  { id: "hi", name: "Hindi" },
+  { id: "esp", name: "Spanish" },
+];

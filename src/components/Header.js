@@ -4,12 +4,18 @@ import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
-import { NETFLIX_LOGO, USER_AVATAR } from "../utils/constants";
+import {
+  NETFLIX_LOGO,
+  USER_AVATAR,
+  SUPPORTED_LANGUAGE,
+} from "../utils/constants";
 import { toggleShowGPTSearch } from "../utils/gptSlice";
+import { setUserLanguage } from "../utils/configuarationSlice";
 
 const Header = () => {
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);
+  const isGPTSearch = useSelector((store) => store.gpt.showGPTSearch);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -38,9 +44,13 @@ const Header = () => {
       });
   };
 
-  const updateShowGTP = ()=>{
-    dispatch(toggleShowGPTSearch())
-  }
+  const updateShowGTP = () => {
+    dispatch(toggleShowGPTSearch());
+  };
+
+  const handleLanguageSelection = (e) => {
+    dispatch(setUserLanguage(e.target.value));
+  };
 
   return (
     <>
@@ -49,9 +59,23 @@ const Header = () => {
 
         {user && (
           <div className="flex">
-            <button className="p-2 mx-2 my-6 w-full rounded-md font-bold bg-red-700 text-white transition duration-300 ease-in-out transform"
-            onClick={updateShowGTP}>
-              GTP Search
+            {isGPTSearch && (
+              <select
+                className="h-8 my-7 mx-1"
+                onChange={handleLanguageSelection}
+              >
+                {SUPPORTED_LANGUAGE.map((language) => (
+                  <option key={language.id} value={language.id}>
+                    {language.name}
+                  </option>
+                ))}
+              </select>
+            )}
+            <button
+              className="p-2 mx-2 my-6 w-full rounded-md font-bold bg-red-700 text-white transition duration-300 ease-in-out transform"
+              onClick={updateShowGTP}
+            >
+              {isGPTSearch ? "Home" : "GTP Search"}
             </button>
             <div className="flex m-4">
               <img
